@@ -59,14 +59,17 @@ class Game {
   animate = () => {
     // move: calculate the new position of the ball
     // Some physics here: the y-portion of the speed changes due to gravity
+    // To make it as accurate as possible, incorporate the time t
+    // At 60fps, each interval is approximately 17ms.
+    const t = 1000 / 60;
     // Formula: Vt = V0 + gt
-    // 9.8 is the gravitational constant and time=1
-    this.ballSpeedY -= 0.98;
+    // 9.8 is the gravitational constant
+    this.ballSpeedY -= 0.0098 * t;
     // Calculate new X and Y parts of the position
     // Formula: S = v*t
-    this.ballPositionX += this.ballSpeedX;
+    this.ballPositionX += this.ballSpeedX * t;
     // Formula: S=v0*t + 0.5*g*t^2
-    this.ballPositionY += this.ballSpeedY + 0.5 * 0.98;
+    this.ballPositionY += this.ballSpeedY + 0.5 * 0.0098 * t * t;
 
     // collide: check if the ball hits the walls and let it bounce
     // Left wall
